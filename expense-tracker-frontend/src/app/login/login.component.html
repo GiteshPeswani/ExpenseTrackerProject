@@ -1,0 +1,67 @@
+<div class="auth-wrapper">
+<div class="auth-card">
+<h2>ExpenseTracker</h2>
+<p class="subtitle">Login to manage your expenses</p>
+
+
+<form [formGroup]="loginform">
+<div class="input-group">
+<input type="email"  formControlName="email" required />
+<label>Email</label>
+</div>
+
+
+<div class="input-group">
+<input type="password" formControlName="password" required />
+<label>Password</label>
+</div>
+
+
+<button type="button" class="btn-primary" (click)="openModal(content)" (click)="logincallkaro()">Login</button>
+
+
+<div class="links">
+<a routerLink="/forgot-password">Forgot Password?</a>
+<a routerLink="/register">Create Account</a>
+</div>
+</form>
+</div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="custom-modal">
+    <div class="modal-header border-0 pb-0">
+      <h4 class="modal-title fw-bold">Enter Category Of Expense</h4>
+      <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+
+    <div class="modal-body">
+      <form [formGroup]="gettingcategory">
+        <div class="mb-3">
+          <label class="form-label small fw-semibold text-muted">Category Name</label>
+          <input type="text" class="form-control custom-input"  formControlName="name" placeholder="Enter category name" required  />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small fw-semibold text-muted">Description</label>
+          <textarea class="form-control custom-input" rows="3" formControlName="description" placeholder="Describe this category" required></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small fw-semibold text-muted">Category Type</label>
+          <select class="form-select custom-input" required       formControlName="type" >
+            <option value="" disabled selected>Select type</option>
+            <option value="INCOME">INCOME</option>
+            <option value="EXPENSE">EXPENSE</option>
+          </select>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer border-0 pt-0">
+      <button class="btn btn-gradient w-100 py-2" (click)="modal.close()" (click)="savetobackend()">
+        Save Category
+      </button>
+    </div>
+  </div>
+</ng-template>

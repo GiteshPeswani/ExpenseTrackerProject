@@ -1,0 +1,7 @@
+@import '../login/login.component.css';
+/* import kiya hai woh css ko yeha pe same css */
+
+
+.links.center {
+justify-content: center;
+}

@@ -1,0 +1,35 @@
+<div class="auth-wrapper">
+<div class="auth-card">
+<h2>Create Account</h2>
+<p class="subtitle">Start tracking your expenses</p>
+
+
+<form (ngSubmit)="onRegister()">
+  <div class="input-group">
+    <input type="text" name="fullName" [(ngModel)]="registerObj.fullName" required />
+    <label>Full Name</label>
+  </div>
+
+  <div class="input-group">
+    <input type="email" name="email" [(ngModel)]="registerObj.email" required />
+    <label>Email</label>
+  </div>
+
+  <div class="input-group">
+    <input type="password" name="password" [(ngModel)]="registerObj.password" required />
+    <label>Password</label>
+  </div>
+
+  <div class="input-group">
+    <input type="password" name="confirmPassword" [(ngModel)]="registerObj.confirmPassword" required />
+    <label>Confirm Password</label>
+  </div>
+
+  <button type="submit" class="btn-primary">Register</button>
+
+  <div class="links center">
+    <a routerLink="/login">Already have an account?</a>
+  </div>
+</form>
+</div>
+</div>
