@@ -9,16 +9,21 @@ import { AuthService } from '../services/auth.service';
 })
 export class ForgotPasswordComponent {
 
-form: FormGroup;
+emailform: FormGroup;
   message = '';
-  loading = false;
-   
+    isLoading = false;
+  shakeForm = false;
+  serverError = '';
+   emailSent = false;
+  sentToEmail = '';
+
+
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService
   ) {
-    this.form = this.fb.group({
+    this.emailform = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
@@ -26,22 +31,24 @@ form: FormGroup;
     
   
 
-  submit() {
-    if (this.form.invalid) return;
+  emailbhejo() {
+    if (this.emailform.invalid) return;
 
-    this.loading = true;
+    this.isLoading= true;
     this.message = '';
 
-    this.authService.forgotPassword(this.form.value.email).subscribe({
+    this.authService.emailbhejo(this.emailform.value).subscribe({
       next: (res: any) => {
         this.message = 'Reset password link has been sent to your email.';  
+        this.isLoading=false;
 
       },
       error: (err) => {
         this.message = err.error?.body || 'Email not registered!';
-        this.loading = false;
+        this.isLoading = false;
       }
     });
   }
+  
 
 }

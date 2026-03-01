@@ -10,7 +10,11 @@ import { ApiService } from '../services/api.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent{
+   showPassword = false;
+  isLoading = false;
+  shakeForm = false;
+  serverError = '';
   
  gettingcategory!:FormGroup
   constructor(private modalService:NgbModal,private apiService:ApiService){}
@@ -19,55 +23,38 @@ export class LoginComponent implements OnInit {
     password:new FormControl('',Validators.required),
   })
  
-   ngOnInit(): void {
-    this.gettingcategory = new FormGroup({
-      userid: new FormControl(1), 
-      name: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-      type: new FormControl('', Validators.required)
-    });
-  }
-	closeResult: WritableSignal<string> = signal('');
-
-	openModal(content: TemplateRef<any>) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-			(result) => {
-				this.closeResult.set(`Closed with: ${result}`);
-			},
-			(reason) => {
-				this.closeResult.set(`Dismissed ${this.getDismissReason(reason)}`);
-			},
-		);
-	}
-
-	private getDismissReason(reason: any): string {
-		switch (reason) {
-			case ModalDismissReasons.ESC:
-				return 'by pressing ESC';
-			case ModalDismissReasons.BACKDROP_CLICK:
-				return 'by clicking on a backdrop';
-			default:
-				return `with: ${reason}`;
-		}
-	}
+  
   logincallkaro(){
     const email=this.loginform.get('email')?.value
     const password=this.loginform.get('password')?.value
 
-    this.apiService.logincallkaro(email,password)
-  }
-  //sidha form ko he bhej dege direct peche no need of making a array
-  savetobackend(){
-    this.apiService.savetobackend(this.gettingcategory.value).subscribe({
-      next:(data)=>{
-      console.log(data)
+    this.apiService.logincallkaro(email,password).subscribe({
+        next:(res:any)=>{
+      alert("Login Successful");
+      console.log("Response:",res);
     },
+
     error:(err)=>{
-      console.log('Error',err)
+      alert("Invalid Email or Password");
+      console.log("Error:",err);
     }
+    })
+    
+    
+  }
+  
+ isInvalid(field: string): boolean {
+    const control = this.loginform.get(field);
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+    getError(field: string): string {
+    const control = this.loginform.get(field);
+    if (!control || !control.errors) return '';
+    if (control.errors['required']) return `${field === 'email' ? 'Email' : 'Password'} is required.`;
+    if (control.errors['email']) return 'Please enter a valid email address.';
+    if (control.errors['minlength']) return 'Password must be at least 8 characters.';
+    return '';
+  }
 
 
-
-  });
-}
 }

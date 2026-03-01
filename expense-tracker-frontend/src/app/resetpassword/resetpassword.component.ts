@@ -10,11 +10,15 @@ import { AuthService } from '../services/auth.service';
 })
 export class ResetPasswordComponent implements OnInit {
 
-  form!: FormGroup;
+  resetForm!: FormGroup;
   token: string = '';
   message = '';
   isTokenValid = false;
-  loading = false;
+   isLoading     = false;
+    resetSuccess  = false;
+      showPassword  = false;
+
+
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +31,7 @@ export class ResetPasswordComponent implements OnInit {
     this.token = this.route.snapshot.paramMap.get('token') || '';
 
 
-    this.form = this.fb.group({
+    this.resetForm = this.fb.group({
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required]
     });
@@ -38,9 +42,14 @@ export class ResetPasswordComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
+    this.resetkaro();
+    this.resetPassword();
 
     // ✅ Token validate from backend
-    this.authService.validateresettoken(this.token).subscribe({
+   
+  }
+  resetkaro(){
+     this.authService.validateresettoken(this.token).subscribe({
       next: () => {
         this.isTokenValid = true;
       },
@@ -51,10 +60,10 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
 
-  submit(): void {
-    if (this.form.invalid) return;
+  resetPassword(): void {
+    if (this.resetForm.invalid) return;
 
-    const { password, confirmPassword } = this.form.value;
+    const { password, confirmPassword } = this.resetForm.value;
 
     // ❌ Password mismatch
     if (password !== confirmPassword) {
@@ -62,22 +71,27 @@ export class ResetPasswordComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
+    this.isLoading = true;
 
     // ✅ Final password reset call
     this.authService.resetPassword(this.token, password).subscribe({
       next: () => {
         this.message = 'Password reset successful! Redirecting to login...';
-        this.loading = false;
+        this.isLoading = false;
 
         setTimeout(() => {
           this.router.navigate(['/login']);
         } , 3000);
       },
       error: (err) => {
-        this.loading = false;
+        this.isLoading = false;
         this.message = err.error?.body || 'Something went wrong!';
       }
     });
   }
+   isInvalid(field: string): boolean {
+    const c = this.resetForm.get(field);
+    return !!(c && c.invalid && (c.dirty || c.touched));
+  }
+
 }

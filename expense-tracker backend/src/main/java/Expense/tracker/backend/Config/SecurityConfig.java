@@ -34,7 +34,8 @@ public class SecurityConfig {
                     .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/register", "/login").permitAll().anyRequest().authenticated()
+                                .requestMatchers("/register", "/login","/forgot-password","/reset-password-final","/tokenvalidation").permitAll().anyRequest().authenticated()
+
 //                        this is ... array
 //                        .requestMatchers("/patterns","/login")).permitAll().anyRequest().authenticted())
                 )

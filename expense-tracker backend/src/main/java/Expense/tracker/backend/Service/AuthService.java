@@ -126,13 +126,13 @@ public class  AuthService {
 
 
 
-        if(!user_token.getExpiry_time().isBefore(LocalDateTime.now())){
+        if(user_token.getExpiry_time().isBefore(LocalDateTime.now())){
             throw new TokenExpired();
         }
 
         authRepository.updateUserPassword(
                 user_token.getUser_id(),
-                encodedPassword(password)
+                encodedPassword(password)   
         );
 
         authRepository.markTokenAsUsed(token);

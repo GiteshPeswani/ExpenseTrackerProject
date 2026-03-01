@@ -1,166 +1,463 @@
-.auth-wrapper {
-    /* 100vh ki jagah 100% height aur screen cover use karein */
-    min-height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    /* Background ko fixed rakhein taaki scroll pe white na dikhe */
-    background: linear-gradient(135deg, #1d2671 0%, #c33764 100%) no-repeat center center fixed;
-    background-size: cover;
-    
-    /* Extra space remove karne ke liye */
-    position: absolute;
-    top: 0;
-    left: 0;
-    
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 20px;
+/* ── Shell Layout ─────────────────────────────── */
+.auth-shell {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
 }
 
-/* Card ko thoda aur uthane ke liye shadow increase ki hai */
-.auth-card {
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    z-index: 1; /* Taaki card background ke upar rahe */
+/* ── Brand Panel ─────────────────────────────── */
+.brand-panel {
+  position: relative;
+  background: #0d0d14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 3rem;
 }
 
-/* Baaki inputs ka code jo maine pehle diya tha wahi rahega */
-.input-group {
-    position: relative;
-    margin-bottom: 25px;
-    text-align: left;
-}
-/* ... rest of your styling ... */
-.input-group input {
-    width: 100%;
-    padding: 16px 15px;
-    border: 1.5px solid #e0e0e0;
-    border-radius: 12px;
-    outline: none;
-    font-size: 15px;
-    background: #fff;
-    transition: all 0.2s ease;
+.brand-content {
+  position: relative;
+  z-index: 2;
+  max-width: 420px;
 }
 
-.input-group label {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #999;
-    font-size: 15px;
-    pointer-events: none;
-    transition: all 0.2s ease;
-    padding: 0 4px;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 4rem;
 }
 
-/* Label Movement - Jab click karein ya text ho */
-.input-group input:focus + label,
-.input-group input:valid + label {
-    top: 0;
-    font-size: 12px;
-    color: #c33764;
-    background: #ffffff; /* Card ke background se match */
-    font-weight: 700;
+.logo-icon {
+  font-size: 1.6rem;
+  color: var(--accent);
+  line-height: 1;
 }
 
-.input-group input:focus {
-    border-color: #c33764;
-    box-shadow: 0 0 0 4px rgba(195, 55, 100, 0.1);
+.logo-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
-/* 5. Button - Stronger Gradient */
-.btn-primary {
-    width: 100%;
-    padding: 16px;
-    border: none;
-    border-radius: 12px;
-    background: linear-gradient(45deg, #1d2671, #c33764);
-    color: #fff;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(195, 55, 100, 0.3);
-    margin-top: 10px;
+.brand-headline h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-bottom: 1.2rem;
 }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(195, 55, 100, 0.4);
-    filter: brightness(1.1);
+.brand-headline h1 em {
+  font-style: normal;
+  color: var(--accent);
 }
 
-/* 6. Links */
-.links {
-    margin-top: 25px;
-    display: flex;
-    gap: 10px;
+.brand-headline p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 340px;
 }
 
-.links.center {
-    justify-content: center;
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 3rem;
 }
 
-.links a {
-    font-size: 14px;
-    color: #1d2671;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.2s;
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
-.links a:hover {
-    color: #c33764;
+.stat-val {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--accent);
 }
 
-
-/* Container styling */
-.custom-modal {
-  padding: 1rem;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+.stat-lbl {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
-/* Matching the input style */
-.custom-input {
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 0.75rem;
-  transition: all 0.3s ease;
+/* Orbs */
+.brand-bg-orbs { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.3;
 }
 
-.custom-input:focus {
-  border-color: #6a3093;
-  box-shadow: 0 0 0 0.2rem rgba(106, 48, 147, 0.1);
+.orb-1 {
+  width: 360px; height: 360px;
+  background: var(--accent);
+  top: -100px; left: -80px;
+}
+
+.orb-2 {
+  width: 280px; height: 280px;
+  background: #42a5f5;
+  bottom: -60px; right: -80px;
+}
+
+/* ── Form Panel ──────────────────────────────── */
+.form-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--bg);
+}
+
+.form-card {
+  width: 100%;
+  max-width: 420px;
+  transition: transform var(--transition);
+}
+
+.form-card.shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+
+.form-header {
+  margin-bottom: 2.5rem;
+}
+
+.form-header h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.4rem;
+}
+
+.form-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* ── Field Group ─────────────────────────────── */
+.field-group {
+  margin-bottom: 1.25rem;
+}
+
+.field-group label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.label-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: opacity var(--transition);
+}
+
+.label-link:hover { opacity: 0.7; }
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  transition: color var(--transition);
+}
+
+.input-wrap input {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 2.8rem 0.75rem 2.8rem;
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.93rem;
   outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
-/* The Gradient Button */
-.btn-gradient {
-  background: linear-gradient(to right, #2e2e6a, #a33b5e);
+.input-wrap input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.input-wrap input:focus ~ .input-icon,
+.input-wrap:focus-within .input-icon {
+  color: var(--accent);
+}
+
+.field-group.has-error .input-wrap input {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px var(--error-dim);
+}
+
+.toggle-pw {
+  position: absolute;
+  right: 12px;
+  background: none;
   border: none;
-  color: white;
-  font-weight: 600;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  transition: color var(--transition);
 }
 
-.btn-gradient:hover {
+.toggle-pw:hover { color: var(--text-secondary); }
+
+.field-error {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--error);
+  margin-top: 0.35rem;
+  padding-left: 2px;
+}
+
+/* ── Remember Row ─────────────────────────────── */
+.remember-row {
+  margin-bottom: 1.5rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+  display: none;
+}
+
+.custom-check {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--border-hover);
+  border-radius: 5px;
+  background: var(--surface-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .custom-check {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .custom-check::after {
+  content: '';
+  width: 5px;
+  height: 9px;
+  border: 1.5px solid #0a0a0f;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg) translateY(-1px);
+  display: block;
+}
+
+/* ── Alert ─────────────────────────────────────── */
+.alert-error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--error-dim);
+  border: 1px solid rgba(255, 95, 95, 0.25);
+  border-radius: var(--radius-sm);
+  color: var(--error);
+  font-size: 0.83rem;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+/* ── Primary Button ─────────────────────────────── */
+.btn-primary {
+  width: 100%;
+  background: var(--accent);
+  color: #0a0a0f;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.82rem 1.5rem;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #d8ff55;
+  box-shadow: 0 4px 24px var(--accent-glow);
   transform: translateY(-1px);
-  opacity: 0.9;
-  color: white;
 }
 
-/* Soften the modal corners */
-::ng-deep .modal-content {
-  border-radius: 20px !important;
-  border: none !important;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-arrow {
+  font-size: 1.1rem;
+  transition: transform var(--transition);
+}
+
+.btn-primary:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(10,10,15,0.3);
+  border-top-color: #0a0a0f;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Divider ─────────────────────────────────── */
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 1.75rem 0;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--border);
+}
+
+.divider span {
+  background: var(--bg);
+  padding: 0 0.85rem;
+  position: relative;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── Social Row ─────────────────────────────── */
+.social-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.btn-social {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: all var(--transition);
+}
+
+.btn-social:hover {
+  border-color: var(--border-hover);
+  background: var(--surface);
+  transform: translateY(-1px);
+}
+
+/* ── Switch Auth ─────────────────────────────── */
+.switch-auth {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.switch-auth a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 0.3rem;
+  transition: opacity var(--transition);
+}
+
+.switch-auth a:hover { opacity: 0.75; }
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 860px) {
+  .auth-shell {
+    grid-template-columns: 1fr;
+  }
+  .brand-panel {
+    display: none;
+  }
+  .form-panel {
+    padding: 2rem 1.25rem;
+  }
 }
